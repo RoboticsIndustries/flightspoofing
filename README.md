@@ -1,19 +1,24 @@
-# :earth_americas: GDP dashboard template
+# ACARS Spoofed Packet Detection Dashboard
 
-A simple Streamlit app showing the GDP of different countries in the world.
+This Streamlit app allows you to upload ACARS packet data and analyze it to detect spoofed packets using machine learning.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gdp-dashboard-template.streamlit.app/)
+## Features
 
-### How to run it on your own machine
+- Upload a CSV file containing ACARS packets data (including spoofed labels).
+- Visualize exploratory data analysis:
+  - Spoofed vs Normal packet counts
+  - Altitude and speed distributions by spoofing status
+  - Geospatial scatter plot
+  - Spoofing rates by message type
+  - Time series of spoofed packets
+- Train a Random Forest classifier on the uploaded data to detect spoofed packets.
+- Input new packet data to predict if it is spoofed or not in real time.
 
-1. Install the requirements
+## How to run locally
 
-   ```
-   $ pip install -r requirements.txt
-   ```
+1. Clone this repository or download the `streamlit_app.py` file.
 
-2. Run the app
+2. Install dependencies (recommended to use a virtual environment):
 
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+```bash
+pip install streamlit pandas matplotlib seaborn scikit-learn
