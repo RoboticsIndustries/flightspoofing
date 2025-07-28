@@ -1,0 +1,53 @@
+import pandas as pd
+import random
+from faker import Faker
+from datetime import datetime, timedelta
+
+# Initialize Faker instance
+fake = Faker()
+
+# Constants
+num_samples = 10000
+num_spoofs = int(num_samples * 0.3)  # 30% spoofed data
+num_normal = num_samples - num_spoofs
+
+# Helper function to generate spoofed data
+def generate_spoofed_data():
+    return {
+        'Timestamp': fake.date_this_decade(),
+        'AircraftID': fake.iban(),
+        'FlightNumber': fake.bothify(text='??####'),
+        'Latitude': fake.latitude(),
+        'Longitude': fake.longitude(),
+        'Altitude_ft': fake.random_int(min=30000, max=40000),
+        'Speed_knots': fake.random_int(min=400, max=500),
+        'MessageType': fake.word(),
+        'MessageContent': fake.sentence(),
+        'IsSpoofed': 1
+    }
+
+# Helper function to generate normal data
+def generate_normal_data():
+    return {
+        'Timestamp': fake.date_this_decade(),
+        'AircraftID': fake.iban(),
+        'FlightNumber': fake.bothify(text='??####'),
+        'Latitude': fake.latitude(),
+        'Longitude': fake.longitude(),
+        'Altitude_ft': fake.random_int(min=30000, max=40000),
+        'Speed_knots': fake.random_int(min=400, max=500),
+        'MessageType': fake.word(),
+        'MessageContent': fake.sentence(),
+        'IsSpoofed': 0
+    }
+
+# Generate spoofed and normal data
+data = [generate_spoofed_data() for _ in range(num_spoofs)] + [generate_normal_data() for _ in range(num_normal)]
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Save to CSV
+df.to_csv('synthetic_packet_data.csv', index=False)
+
+print("CSV file 'synthetic_packet_data.csv' has been generated.")
